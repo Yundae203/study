@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <p th:text="#{item}"></p>
+    <p th:text="#{item.id}"></p>
+    <p th:text="#{item.itemName}"></p>
+    <p th:text="#{item.price}"></p>
+    <p th:text="#{item.quantity}"></p>
+    <p th:text="#{test.error}"></p>
+    <p th:text="${#fields}"></p>
+<!--    th:errors -> 객체의 필드명으로 BindingResult가 존재하면 error내용 출력    -->
+    <form th:action="@{/test}" th:object="${test}" method="post">
+
+        <div th:if="${#fields.hasGlobalErrors()}">
+            <p th:each="error : ${#fields.globalErrors()}" th:text="${error}">글로벌 오류 메시지 출력</p>
+        </div>
+
+        <input type="text" th:errorclass="field-error" th:field="*{id}"><br>
+        <div class="field-error" th:errors="*{id}"></div>
+
+        <input type="text" th:errorclass="field-error" th:field="*{pw}"><br>
+        <div class="field-error" th:errors="*{pw}"></div>
+
+        <input type="text" th:errorclass="field-error" th:field="*{age}"><br>
+        <div class="field-error" th:errors="*{age}"></div>
+
+        <button type="submit">테스트</button>
+    </form>
+</body>
+</html>
