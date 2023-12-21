@@ -2,18 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>login</title>
+    <title>join</title>
 </head>
 <body>
-    <form th:action="@{/login}" th:object="${loginForm}" method="post">
+    <form th:action="@{/member}" th:object="${memberForm}" method="post">
 
         <div th:if="${#fields.hasGlobalErrors()}">
             <div th:each="error : ${#fields.globalErrors()}" th:text="${error}"></div>
         </div>
 
         <span>ID: </span><input type="text" th:field="*{memberId}"><br>
+        <div th:errors="*{memberId}"></div>
+
         <span>PW: </span><input type="password" id="memberPw" name="memberPw"><br>
-        <button type="submit">로그인</button>
+        <div th:errors="*{memberPw}"></div>
+
+        <span>Name: </span><input type="text" th:field="*{memberName}"><br>
+        <div th:errors="*{memberName}"></div>
+
+        <span>AGE: </span><input type="text" th:field="*{memberAge}"><br>
+        <div th:errors="*{memberAge}"></div>
+
+        <button type="submit">회원가입</button>
         <button type="button" th:onclick="location.href='/'">닫기</button>
     </form>
 </body>

@@ -19,13 +19,16 @@ public class Member {
 
     private String memberPw;
 
-    private Integer memberAge;
+    private String memberName;
+
+    private int memberAge;
 
     @Builder
-    public Member(Long memberIdx, String memberId, String memberPw, Integer memberAge) {
+    public Member(Long memberIdx, String memberId, String memberName, String memberPw, int memberAge) {
         this.memberIdx = memberIdx;
         this.memberId = memberId;
         this.memberPw = memberPw;
+        this.memberName = memberName;
         this.memberAge = memberAge;
     }
 }
