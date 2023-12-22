@@ -11,9 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @Controller
@@ -29,7 +27,9 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @ModelAttribute LoginForm loginForm, BindingResult bindingResult,
+    public String login(@Valid @ModelAttribute LoginForm loginForm,
+                        BindingResult bindingResult,
+                        @RequestParam(name="redirectURL") String redirectURL,
                         HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
@@ -48,6 +48,11 @@ public class LoginController {
         HttpSession session = request.getSession();
         session.setAttribute("memberId", member.getMemberId());
 
+        log.info("redirectURL = {}", redirectURL);
+
+        if (redirectURL != null) {
+            return "redirect:" + redirectURL;
+        }
         return "redirect:/";
     }
 
