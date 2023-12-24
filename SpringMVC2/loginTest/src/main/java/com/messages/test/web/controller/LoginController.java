@@ -29,7 +29,7 @@ public class LoginController {
     @PostMapping("/login")
     public String login(@Valid @ModelAttribute LoginForm loginForm,
                         BindingResult bindingResult,
-                        @RequestParam(name="redirectURL") String redirectURL,
+                        @RequestParam(name = "redirectURL",defaultValue = "/") String redirectURL,
                         HttpServletRequest request) {
 
         if (bindingResult.hasErrors()) {
@@ -48,12 +48,7 @@ public class LoginController {
         HttpSession session = request.getSession();
         session.setAttribute("memberId", member.getMemberId());
 
-        log.info("redirectURL = {}", redirectURL);
-
-        if (redirectURL != null) {
-            return "redirect:" + redirectURL;
-        }
-        return "redirect:/";
+        return "redirect:" + redirectURL;
     }
 
     @GetMapping("/logout")
